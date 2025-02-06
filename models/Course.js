@@ -22,6 +22,11 @@ const CourseSchema = new Schema({
     default: Date.now,
   },
 
+  category: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Category",
+  },
+
   slug: {
     type: String,
     unique: true,
