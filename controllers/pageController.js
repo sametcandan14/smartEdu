@@ -5,3 +5,7 @@ exports.getIndexPage = (req, res) => {
 exports.getAboutPage = (req, res) => {
   res.status(200).render("about", { pageName: "about" });
 };
+
+exports.getRegisterPage = (req, res) => {
+  res.status(200).render("register", { pageName: "register" });
+};
