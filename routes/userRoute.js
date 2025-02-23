@@ -6,6 +6,7 @@ const {
   logoutUser,
   getDashboardPage,
 } = require("../controllers/authController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
@@ -16,6 +17,6 @@ router.route("/login").post(loginUser);
 
 router.route("/logout").get(logoutUser);
 
-router.route("/dashboard").get(getDashboardPage);
+router.route("/dashboard").get(authMiddleware, getDashboardPage);
 
 module.exports = router;
