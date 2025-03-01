@@ -27,6 +27,11 @@ const CourseSchema = new Schema({
     ref: "Category",
   },
 
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+  },
+
   slug: {
     type: String,
     unique: true,
