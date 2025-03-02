@@ -19,6 +19,26 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-9 blog-post-single">
+            <!-- messages -->
+
+            <% if(flashMessages) { %>
+            <!-- success message -->
+            <% if(flashMessages.success) { %>
+
+            <div class="alert alert-success"><%=flashMessages.success %></div>
+
+            <!-- success message -->
+
+            <!-- error message -->
+            <% } else if(flashMessages.error) { %>
+
+            <div class="alert alert-danger"><%=flashMessages.error %></div>
+            <% } %>
+
+            <!-- error message -->
+
+            <% } %>
+            <!-- messages -->
             <div class="row">
               <% for (course of courses) { %>
               <div class="col-lg-6 col-md-6 col-12">

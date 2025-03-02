@@ -23,7 +23,8 @@ exports.getContactPage = (req, res) => {
 };
 
 exports.sendEmail = async (req, res) => {
-  const outputMessage = `
+  try {
+    const outputMessage = `
   <h1>Mail Details </h1>
   <ul>
   <li>Name: ${req.body.name} </li>
@@ -33,19 +34,19 @@ exports.sendEmail = async (req, res) => {
    <p>  ${req.body.message} </p>
   `;
 
-  const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    auth: {
-      user: "kitty35@ethereal.email",
-      pass: "xpt83k1eKDRgUjTSXy",
-    },
-  });
+    let transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      auth: {
+        user: "kitty35@ethereal.email",
+        pass: "xpt83k1eKDRgUjTSXy",
+      },
+    });
 
-  // async..await is not allowed in global scope, must use a wrapper
-  async function main() {
+    // async..await is not allowed in global scope, must use a wrapper
+
     // send mail with defined transport object
-    const info = await transporter.sendMail({
+    let info = await transporter.sendMail({
       from: '"Kitty McLaughlin Smart Edu Contact Form" <sametcandan38@gmail.com>', // sender address
       to: "c._samet@hotmail.com", // list of receivers
       subject: "Smart Edu Contact Form New Message ✔", // Subject line
@@ -54,9 +55,17 @@ exports.sendEmail = async (req, res) => {
 
     console.log("Message sent: %s", info.messageId);
     // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+    req.flash("success", "We Received Your Message Succesfully!");
+
+    res.status(200).redirect("/contact");
+  } catch (err) {
+    // req.flash("error", `Something Went Wrong! ${err}`);
+    req.flash("error", `Something Went Wrong!`);
+
+    res.status(400).redirect("/contact");
   }
-
-  main().catch(console.error);
-
-  res.status(200).redirect("/contact");
 };
