@@ -6,6 +6,7 @@ const {
   getCourse,
   enrollCourse,
   releaseCourse,
+  deleteCourse,
 } = require("../controllers/courseController");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 
@@ -17,6 +18,8 @@ router.route("/").post(roleMiddleware(["teacher", "admin"]), createCourse);
 router.route("/").get(getAllCourses);
 
 router.route("/:slug").get(getCourse);
+
+router.route("/:slug").delete(deleteCourse);
 
 router.route("/enroll").post(enrollCourse);
 

@@ -92,6 +92,24 @@
         <div class="row">
           <!-- Modal Button -->
 
+          <% if(flashMessages) { %>
+          <!-- success message -->
+          <% if(flashMessages.success) { %>
+
+          <div class="alert alert-success"><%=flashMessages.success %></div>
+
+          <!-- success message -->
+
+          <!-- error message -->
+          <% } else if(flashMessages.error) { %>
+
+          <div class="alert alert-danger"><%=flashMessages.error %></div>
+          <% } %>
+
+          <!-- error message -->
+
+          <% } %>
+          <!-- messages -->
           <div class="col-lg-12 text-center">
             <button
               class="btn btn-lg btn-warning rounded-0 text-white"
@@ -131,6 +149,20 @@
                 </div>
                 <div class="course-desc">
                   <p><%= course.description %></p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <button class="btn btn-primary rounded-0 text-white">
+                    <span>UPDATE</span>
+                  </button>
+
+                  <a
+                    href="/courses/<%= course.slug %>?_method=DELETE"
+                    onclick="return confirm('ARE YOU SURE?')"
+                    class="btn btn-danger rounded-0 text-white"
+                  >
+                    <span>DELETE</span>
+                  </a>
                 </div>
               </div>
             </div>
